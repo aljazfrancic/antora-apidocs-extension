@@ -1,0 +1,71 @@
+{
+  "name": "@antora/apidocs-extension",
+  "version": "0.0.0-alpha.1",
+  "description": "An Antora extension that inserts code API Documentation into the site.",
+  "license": "MPL-2.0",
+  "author": "Willie Slepecki <scphantm@gmail.com>",
+  "contributors": [
+    "Dan Allen <dan@opendevise.com>",
+    "Willie Slepecki <scphantm@gmail.com>"
+  ],
+  "homepage": "https://antora.org",
+  "repository": "https://gitlab.com/scphantm/antora-apidocs-extension",
+  "bugs": {
+    "url": "https://gitlab.com/scphantm/antora-apidocs-extension/-/issues"
+  },
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "coverage": "nyc _mocha",
+    "format": "node npm/format.js lib,test,npm",
+    "lint": "eslint \"{lib,npm}/**/*.js\"",
+    "test": "_mocha",
+    "version": "node npm/version.js",
+    "prepublishOnly": "node npm/prepublishOnly.js",
+    "postpublish": "node npm/postpublish.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "antora",
+    "antora-component",
+    "antora-extension"
+  ],
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "@antora/site-generator": "3.0.0-rc.2",
+    "chai": "~4.3",
+    "chai-fs": "~2.0",
+    "dirty-chai": "~2.0",
+    "eslint": "~7.32",
+    "eslint-config-standard": "~16.0",
+    "mocha": "~9.1",
+    "nyc": "~15.1",
+    "prettier-eslint": "~13.0"
+  },
+  "nyc": {
+    "cache": true,
+    "cacheDir": "node_modules/.cache/nyc",
+    "include": [
+      "lib/*.js"
+    ],
+    "reporter": [
+      "cobertura",
+      "lcov",
+      "text"
+    ],
+    "reportDir": "reports"
+  },
+  "workspaces": [
+    "."
+  ]
+}
