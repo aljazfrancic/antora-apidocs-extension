@@ -1,0 +1,6 @@
+name: apidocsextension
+title: Antora API Docs Extension
+version: master
+start_page: ROOT:index
+nav:
+  - modules/ROOT/nav.adoc

@@ -1,0 +1,102 @@
+When configuring, be aware of how Antora works.
+First, there's the master playbook file.
+This file lists all the component repositories that will be pulled into your documentation site.
+This playbook file is global, its settings apply to all component repositories in the system.
+
+Within each component repository, is an `antora.yml` file.
+This is where the individual component/version settings are made.
+
+When the extension runs, it combines these two settings locations into a single configuration object that's used to run the generation.
+Any of these settings can be located in either the `playbook.yml` or the `antora.yml`.
+The biggest thing to remember is the settings in the `antora.yml` will override what's in the `playbook.yml`.
+
+A very typical playbook file looks like this
+
+.playbook.yml
+[source,yaml]
+----
+...
+antora:
+  extensions:
+    - require: '@antora/lunr-extension'
+    - require: 'antora-apidocs-extension'
+      api_docs_generator:
+        doxygen:
+          code_directory: code_src
+          doxygen_path: /usr/bin/doxygen
+          working_path: /tmp
+          output_files_destination: modules/ROOT/attachments
+          output_files_build_dir: build
+          attachment_dir: cdoc
+          index_filename: index.html
+          api_docs_link_text: "API Documentation"
+          specialty_files:
+            - file_name: Doxyfile
+              is_required: true
+              is_common_capable: true
+              common_file_path: /doxyfiles/Doxyfile
+----
+
+And a typical `antora.yml` file looks like this
+
+.antora.yml
+[source,yaml]
+----
+name: myapp
+title: My Application
+version: master
+start_page: ROOT:index.adoc
+nav:
+  - modules/ROOT/nav.adoc
+extensions:
+  api_docs_generator:
+    doxygen:
+      enabled: true
+----
+
+|===
+|Config Setting |Description |Default value
+
+|doxygen.enabled
+|This will enable or disable the extension for the specific component/version in the playbook.
+It's meant to be placed in the `antora.yml`.
+|false
+
+|doxygen.code_directory
+|This is the directory within your `docs` directory that you symlinked all your source into.
+|code_src
+
+|doxygen.doxygen_path
+|This is the path to the doxygen executable
+|undefined
+
+|doxygen.working_path
+|This is the working folder that will be used to copy the files out of the virtual file system.
+The extension creates a subdirectory under this one for each component in your playbook.
+|/tmp
+
+|doxygen.output_files_destination
+|This is the base directory that the resulting files will be copied to.
+|modules/ROOT/attachments
+
+|doxygen.output_files_build_dir
+|The directory that the generator puts the output files.
+|build
+
+|doxygen.attachment_dir
+|This is the subdirectory with the `doxygen.output_files_destination` that the files will be copied to.
+|cdoc
+
+|doxygen.index_filename
+|The filename of the index file of the generated files.
+|index.html
+
+|doxygen.api_docs_link_text
+|When the extension creates a hyperlink to your generated files in the `nav.adoc`, this is the text that's used.
+|API Documentation
+
+|doxygen.specialty_files
+|This handles the specialty files needed for the generator.
+This allows for globally common files to be used, or those common files can be overriden by putting one in your repo.
+|[]
+|===

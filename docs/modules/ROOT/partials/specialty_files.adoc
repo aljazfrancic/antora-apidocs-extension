@@ -1,0 +1,40 @@
+Special files really can be anything.
+The feature was designed for global configuation situations.
+An example being you want to use the same `Doxyfile` for all the repositories in your playbook.
+You can do this by creating the file and including it in your Docker container, in a location Antora can get to while executing.
+
+Think of it as a way to automatically copy in common files.
+
+The configuration block for a special file looks like this:
+
+[sourc,yaml]
+----
+- file_name: Doxyfile
+  is_required: true
+  is_common_capable: true
+  common_file_path: /doxyfiles/Doxyfile
+----
+
+Lets explain what each setting does.
+
+|===
+|Setting |Description
+
+|file_name
+|The file name for the special file.
+This filename is relative from the root.
+`src/Doxyfile` is another example of what the setting can be.
+
+|is_required
+|If this is true, and the file isn't found after all the copying is complete, Antora will stop processing.
+
+|is_common_capable
+|Flags if its a common file.
+When you set this, the plugin will first copy the common file into the working directory.
+It will then copy the repo contents into the working directory.
+If the repo has a file in the same location, it will overwrite the common file.
+
+|common_file_path
+|This is the path within the Docker container (or file system) where the extension can find the common file.
+
+|===

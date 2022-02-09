@@ -1,0 +1,35 @@
+
+.dockerfile
+[source,dockerfile]
+----
+FROM antora/antora:3.0.1
+
+RUN yarn global add @asciidoctor/core
+RUN yarn global add doxygen
+RUN yarn global add antora-apidocs-extension
+
+RUN apk add git
+RUN apk add doxygen
+RUN apk add graphviz
+
+COPY docker_files/Doxyfile /doxyfiles/Doxyfile # <1>
+COPY docker_files/custom-header.html /doxyfiles/custom-header.html # <2>
+
+WORKDIR /antora
+
+CMD ["sh","-c", "echo 'Building the site' && /usr/local/bin/antora antora-playbook.yml"]
+
+----
+<1> Copies the global `Doxyfile` into the `/doxyfiles` directory within the Docker container.
+<2> You can copy additional files too as needed.
+
+With additional files, make sure they are referenced correctly in your `Doxyfile`.
+In the example above, we are copying in a custom header for Doxygen.
+This would mean the correct setting within the `Doxyfile` would be
+
+[source,Makefile]
+----
+HTML_HEADER            = /doxyfiles/custom-header.html
+----
+
+Remember, these paths must be absolute to the root of the Docker container.

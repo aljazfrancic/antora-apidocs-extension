@@ -1,6 +1,6 @@
 {
-  "name": "@antora/apidocs-extension",
-  "version": "0.0.0-alpha.1",
+  "name": "antora-apidocs-extension",
+  "version": "0.0.1",
   "description": "An Antora extension that inserts code API Documentation into the site.",
   "license": "MPL-2.0",
   "author": "Willie Slepecki <scphantm@gmail.com>",
@@ -42,7 +42,7 @@
 
   },
   "devDependencies": {
-    "@antora/site-generator": "3.0.0-rc.2",
+    "@antora/site-generator": "3.0.1",
     "chai": "~4.3",
     "chai-fs": "~2.0",
     "dirty-chai": "~2.0",

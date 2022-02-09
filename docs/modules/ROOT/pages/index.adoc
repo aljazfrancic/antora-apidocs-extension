@@ -1,0 +1,44 @@
+﻿= Antora API Docs Generator Extension
+
+The API docs generator is an Antora extension that executes Doxygen on your source code and puts the API docs into your Antora build.
+
+This generator is designed to accomplish its job while requiring as little changes to your target repositories as possible.
+
+Here's an overview of how it works.
+
+. When Antora clones your remote repo, it copies your source code files out of the virtual file system and into a temporary folder.
+. It then executes Doxygen with a specific `Doxyfile`, generating your api documentation.
+. The resulting files are then copied into the correct locations in the virtual file system.
+. Once the files are processed into the site, the extension automatically adds a link to the components `nav.adoc` with the location of your generated code.
+
+== Getting ready to build
+
+Because of the nature of things, its HIGHLY recommended you do all the work inside a Docker container.
+There are a lot of moving parts, a lot of files that need to be in specific locations, and several plugins that need installed.
+If you try to do this outside a container, it can be done, but it will be very brittle from machine to machine.
+
+Docker is the only way to do this with any level of reliability.
+
+=== Preparing Doxygen
+
+The first generator that we will work with is Doxygen.
+
+==== Doxyfile
+
+include::{partialsdir}/doxygen_doxyfile.adoc[]
+
+==== Granting access to the source code
+
+include::{partialsdir}/mapping_source.adoc[]
+
+== Configuration Settings
+
+include::{partialsdir}/config_settings.adoc[]
+
+=== Specialty Files
+
+include::{partialsdir}/specialty_files.adoc[]
+
+== Docker Build
+
+include::{partialsdir}/docker_config.adoc[]

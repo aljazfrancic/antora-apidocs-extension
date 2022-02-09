@@ -1,0 +1,34 @@
+
+When Antora runs, it copies the contents of the `start_path` setting into a virtual file system.
+The VFS is mentioned a lot in Antora, but it's really simply an in-memory array of the file metadata and contents.
+This is important to realize, so you understand why things are done the way they are.
+Antora will pull down your code, via a clone or fetch, from its remote location.
+From there, Antora calls `git` to extract the files in question directly from the `git` pack file into the VFS.
+
+Since these files never reach a traditional file system, Antora is only aware of files that are in the `start_path` of your project.
+This means that Antora itself does not have access to files outside the `start_path`.
+In order to get those files, we create a relative symlink in the `start_path` directory.
+When Antora does its clone, it will automatically walk those symlinks and copy the target files into the VFS where you can copy them out for processing.
+
+IMPORTANT: Windows users, use the git console to create the symlinks.
+This will ensure they will work inside the Docker container as Windows symlinks can be a little tricky.
+
+The end result directory structure you want will look something like this
+
+* root
+** docs
+*** code_src
+**** myapp_lib -> ../src/myapp_lib
+**** myapp_webjob -> ../src/myapp_webjob
+*** modules
+**** ROOT
+***** pages
+*** antora.yml
+** src
+*** myapp_lib
+*** myapp_webjob
+
+IMPORTANT: When you create the symlinks, make absolutly sure they are relative links.
+Absolute symlinks will cause the system to error.
+
+When the extension runs, it will take whatever is in the directory `code_src` (configured with the `code_directory` setting) and copy them to the temporary file system for processing.
