@@ -1,0 +1,12 @@
+name: myapp
+title: My App
+version: master
+start_page: ROOT:index.adoc
+nav:
+  - modules/ROOT/nav.adoc
+extensions:
+  api_docs_generator:
+    doxygen:
+      enabled: true
+
+

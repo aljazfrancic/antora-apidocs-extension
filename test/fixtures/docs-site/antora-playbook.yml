@@ -1,0 +1,39 @@
+site:
+  title: Local Preview
+  url: https://antora-api.example.org
+  start_page: myapp::index.adoc
+content:
+  sources:
+    - url: ./../../..
+      branches: HEAD
+      start_path: test/fixtures/docs-site
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./../../../supplemental_ui
+output:
+  clean: true
+  dir: docs/public
+  destinations:
+    - provider: fs
+runtime:
+  fetch: true
+  log:
+    format: pretty
+    level: debug
+antora:
+  extensions:
+    - require: '../../lib/index.js'
+      api_docs_generator:
+        doxygen:
+          doxygen_path: /usr/bin/doxygen
+          working_path: /tmp
+          output_files_destination: modules/ROOT/attachments
+          output_files_build_dir: build
+          specialty_files:
+            - file_name: Doxyfile
+              is_required: true
+              is_common_capable: true
+              common_file_path: /doxyfiles/Doxyfile
