@@ -1,7 +1,6 @@
 = Antora API Docs Generator Extension
 :url-antora-docs: https://docs.antora.org/antora/3.0
-:url-antora-lunr: https://github.com/Mogztter/antora-lunr
-:url-repo: https://gitlab.com/antora/antora-lunr-extension
+:url-repo: https://gitlab.com/scphantm/antora-apidocs-extension
 :toc:
 :toc-title: Contents
 
@@ -14,7 +13,7 @@ endif::[]
 ifdef::badges[]
 image:{url-gitlab-badges}/pipeline.svg[link="{url-repo}/-/pipelines?scope=finished&page=1&ref=main",title="pipeline status"]
 image:{url-gitlab-badges}/coverage.svg[link="{url-repo}/-/jobs?scope=finished",title="coverage report"]
-image:https://img.shields.io/npm/v/@antora/lunr-extension[link="https://www.npmjs.com/package/@antora/lunr-extension",title="npm version"]
+image:https://img.shields.io/npm/v/antora-apidocs-extension[link="https://www.npmjs.com/package/antora-apidocs-extension",title="npm version"]
 endif::[]
 
 The API docs generator is an Antora extension that executes Doxygen on your source code and puts the API docs into your Antora build.
